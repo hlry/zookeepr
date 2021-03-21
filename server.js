@@ -10,6 +10,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
+// make front end files available
+app.use(express.static('public'));
 
 // Find by ID function
 function findById(id, animalsArray) {
@@ -122,6 +124,21 @@ app.post('/api/animals', (req, res) => {
         res.json(animal);
     }
 
+});
+
+// GET route for HTML homepage
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+// GET route to see animals HTML page
+app.get('/animals', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/animals.html'));
+});
+
+// GET route to serve zookepers HTML page
+app.get('/zookeepers', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/zookeepers.html'));
 });
 
 
