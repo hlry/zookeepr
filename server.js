@@ -4,6 +4,13 @@ const { animals } = require('./data/animals');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
+// Find by ID function
+function findById(id, animalsArray) {
+    const result = animalsArray.filter(animal => animal.id === id)[0];
+    return result;
+}
+
+// Filter by Query function
 function filterByQuery(query, animalsArray) {
     let personalityTraitsArray = [];
     // Note that we save the animalsArray as filteredResults here:
@@ -43,6 +50,8 @@ function filterByQuery(query, animalsArray) {
     return filteredResults;
 }
 
+
+// GET route for animals
 app.get('/api/animals', (req, res) => {
     let results = animals;
     if (req.query) {
@@ -51,6 +60,15 @@ app.get('/api/animals', (req, res) => {
     res.json(results);
 });
 
+// New GET route for animals by id - param route
+app.get('/api/animals/:id', (req, res) => {
+    const result = findById(req.params.id, animals);
+    if (result) {
+        res.json(result);
+    } else {
+        res.send(404);
+    }
+});
 
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`)
