@@ -10,7 +10,7 @@ function findById(id, animalsArray) {
     return result;
 }
 
-// Filter by Query function
+// Filter by Trait Query function
 function filterByQuery(query, animalsArray) {
     let personalityTraitsArray = [];
     // Note that we save the animalsArray as filteredResults here:
